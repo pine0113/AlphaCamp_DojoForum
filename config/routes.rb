@@ -1,16 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  #devise_for :users, :controllers => { registrations: 'registrations' }
+
   # 請依照專案指定規格來設定路由
 
-  namespace :admin do
-    resources :posts, only: [:index, :destroy]
-    resources :users, only: [:index]
-    resources :categories, only: [:index, :create, :update, :destory]
-
-    root "admin/tweets#index"
-  end
-
+  root "posts#index"
   resources :posts, only: [:index, :show, :create] do
       get :rights
 
@@ -42,6 +36,16 @@ Rails.application.routes.draw do
        get :friends
      end
 
+  end
+
+
+
+  namespace :admin do
+    resources :posts, only: [:index, :destroy]
+    resources :users, only: [:index]
+    resources :categories, only: [:index, :create, :update, :destory]
+
+    root "admin/categories#index"
   end
 
    #namespace :api, defaults: {format: :json} do
