@@ -24,7 +24,7 @@
               <ul class="nav navbar-nav">
               <li class="active"><a href="#">Feeds</a></li>
               <li><a href="#">All Post</a></li>
-              <li><a href="#">New Post</a></li>
+              <li> <%= link_to "New Post", new_post_path %></li>
              </ul>
 
 
@@ -33,9 +33,9 @@
            <ul class="nav navbar-nav navbar-right">
           
             <% if current_user %>
-              <li>  <%= link_to( image_tag(current_user.avatar, width: '32') , edit_user_path(current_user)) %> </li>
+              
                 <% if current_user.admin? %>
-                  <li><%= link_to('Admin', admin_tweets_path) %> </li>
+                  <li><%= link_to('Admin', admin_posts_path) %> </li>
                 <% end %>
               <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %> </li>
               <!-- <li><%= link_to('修改密碼', edit_user_registration_path) %></li> -->

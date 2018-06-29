@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # 請依照專案指定規格來設定路由
 
   root "posts#index"
-  resources :posts, only: [:index, :show, :create] do
+  resources :posts, only: [:index, :show, :create, :new] do
       get :rights
 
     member do
