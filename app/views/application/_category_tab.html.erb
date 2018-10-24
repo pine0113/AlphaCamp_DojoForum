@@ -1,0 +1,10 @@
+
+<ul class="nav nav-pills">
+
+  <li role="presentation"><%= link_to "All", posts_path %></li>
+
+ <% @categories.each do |category| %>
+  <li role="presentation"><%= link_to category.name, category_path(category) %></li>
+ <% end %> 
+
+</ul>

@@ -1,0 +1,37 @@
+
+<%= @post.title %> <br>
+<%= simple_format(@post.content) %> <br>
+<%= @post.view_count %> <br>
+<%= @post.replies_count %> <br>
+<%= @post.user_id %> <br>
+
+<%= @post.created_at %> <br>
+<%= @post.updated_at %> <br>
+<%= @post.access %> <br>
+<%= image_tag @post.image %> <br>
+
+<hr>
+<% @post.categories.each do |category|  %>
+  <%= category.name %>,
+<% end %>
+
+<hr>
+<% @post.replies.each do |reply|  %>
+  <%= reply.content %>
+  <%= reply.user.name %>
+  <%= reply.created_at %>
+  <%= reply.updated_at %> <br>
+  
+<% end %>
+
+
+<hr>
+
+<%= form_for [@post,@reply] do |f| %>
+  <%= f.text_area :content , class: "form-control", placeholder: "Content" %><br>
+  <%= f.submit 'Submit',class: "btn btn-primary", name: nil %>
+  <%= f.button "Cancel", type: :reset, class: "btn btn-default" %>
+<% end %>
+
+
+<p><%= link_to 'Back to index', posts_path %></p>

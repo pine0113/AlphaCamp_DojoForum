@@ -37,7 +37,10 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'devise'
-gem 'ffaker'
+gem 'ffaker', '~> 2.10'
+gem 'carrierwave', '~> 1.2', '>= 1.2.3'
+gem "font-awesome-rails"
+gem 'acts-as-taggable-on', '~> 6.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -10,5 +10,11 @@
 
 User.create(name: "sinash", email: "pine0113@gmail.com", password: "12345678", role: "admin")
 User.create(name: "admin", email: "admin@example.com", password: "12345678", role: "admin")
+User.create(name: "user", email: "user@example.com", password: "12345678", role: "")
 
 puts "Default admin created!"
+
+
+Category.create(:name => "商業類")
+Category.create(:name => "技術類")
+Category.create(:name => "心理類")
