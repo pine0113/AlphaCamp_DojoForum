@@ -7,18 +7,13 @@ Rails.application.routes.draw do
   root 'posts#index'
   resources :posts, only: [:index, :show, :create, :new, :edit, :update, :destroy] do
     get :rights
-
     member do
-      post :like
-      post :unlike
+      post :collect
+      post :uncollect
     end
 
     resources :replies, only: [:create]
 
-    member do
-      post :like
-      post :unlike
-    end
   end
 
   resources :replies, only: [:destroy, :edit, :update]

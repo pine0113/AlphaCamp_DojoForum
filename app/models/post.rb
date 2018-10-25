@@ -10,12 +10,15 @@ class Post < ApplicationRecord
     replies.order('id DESC').first
   end
 
-  def self.draft
-    where(:status => 'draft')
+  def status
+    if published_at.nil?
+      'draft'
+    else
+      'publish'
+    end
   end
 
-  def self.publish
-    where(:status => 'publish')
+  def published?
+    published_at?
   end
-
 end

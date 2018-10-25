@@ -1,5 +1,7 @@
 <div class="jumbotron"> 
+  <% unless @user.avatar.url.nil? %>
   <%= image_tag(@user.avatar.url, class: "user_icon", width: "100px" , height: "100px" ) %> <br>
+  <% end %>
   <h3 class="user_name"> <%= @user.name %>  </h3>
   <div class="introdunction"> 
     <%= @user.intro %>

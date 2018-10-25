@@ -19,8 +19,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def posts
-    @posts = @user.posts.where("status != 'draft'").order('id DESC')
+  def show
+    @posts = @user.posts.where.not(published_at: [nil, ""]).order('id DESC')
   end
 
   def comments
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def drafts
-    @posts = @user.posts.where("status = 'draft'").order('id DESC')
+    @posts = @user.posts.where(published_at: [nil, ""]).order('id DESC')
   end
 
   def collects

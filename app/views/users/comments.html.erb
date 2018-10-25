@@ -1,11 +1,28 @@
 <%= render :partial => "info" %>
 
+<table>
 <% @replies.each do |reply| %>
   <% unless reply.post.nil?%>
-    <%= reply.post.title %> <br>
-    <button>Edit</button><button>Remove</button><br>
-    <%= reply.content %>
-    <hr>
+     
+      <%= form_for reply, url: reply_path do |f| %>
+      <tr>
+      <td colspan="2"> <h4><%= reply.post.title %> </h4> </td>
+      </tr>
+       <tr> 
+        <td>
+           <%= f.text_area :content, placeholder: "Content",  class: "form-control" %>            
+        </td>
+        <td>
+          <%= f.submit "Edit", class: "btn btn-primary" %>
+            <%= link_to "Delete" ,reply_path(reply), method: :delete, data: {confirm:"Are you sure?"}, class: "btn btn-default" %>
+        </td>
+      </tr>
+
+      <% end %>
+
+
+
   <% end %>
 
 <% end %>
+</table>

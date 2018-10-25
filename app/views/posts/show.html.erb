@@ -2,11 +2,13 @@
 <table class="table table-bordered">
   <tr>
     <td colspan="3">
-      <h4> <%= @post.title %> </h4>
+      <h4> <%= @post.title %> <% if @post.status=="draft"%> (draft) <%end%></h4>
        <% @post.categories.each do |category|  %>
         <span class="badge badge-secondary"><%= category.name %></span>
       <% end %>
-      <button class="btn btn-default">collect</button>
+
+      <button id="<%= @post.id %>" class="collect-btn btn btn-default">collect</button>
+
     </td>
   </tr>
   <tr>
@@ -60,3 +62,22 @@
 <hr>
 
 <p><%= link_to 'Back to index', posts_path , class: "btn btn-default"%></p>
+
+
+<script>
+
+$(".collect-btn").on("click", function(event) {
+
+  var id = event.target.parentNode.parentNode.id;
+  console.log(id);
+  $.ajax({
+    url: "/posts/" + id + "/collect" ,
+    method: "POST",
+    dataType: "json",
+    success: function(data) {
+      
+    }
+  });
+
+});
+</script>

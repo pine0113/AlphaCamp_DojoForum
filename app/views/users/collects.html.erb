@@ -1,1 +1,26 @@
 <%= render :partial => "info" %>
+
+<h4> Posts </h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status </th>
+      <th>Last Update</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @collects_posts.each do |post| %>
+      <tr>
+        <td> <%= link_to post.title, post_path(post) %></td>
+        <td> <%= post.status %></td>
+        <td> <%=  time_ago_in_words(post.last_reply_time) unless post.last_reply_time.nil? %> </td>
+        <td>
+           <button> uncollect </button>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
