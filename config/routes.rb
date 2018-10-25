@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # 請依照專案指定規格來設定路由
 
   root 'posts#index'
-  resources :posts, only: [:index, :show, :create, :new] do
+  resources :posts, only: [:index, :show, :create, :new, :edit, :update, :destroy] do
     get :rights
 
     member do
@@ -13,13 +13,15 @@ Rails.application.routes.draw do
       post :unlike
     end
 
-    resources :replies, only: [:index, :create]
+    resources :replies, only: [:create]
 
     member do
       post :like
       post :unlike
     end
   end
+
+  resources :replies, only: [:destroy, :edit, :update]
 
   resources :category, only: [:show]
 
@@ -40,17 +42,22 @@ Rails.application.routes.draw do
   resources :feeds, only: [:index]
 
   namespace :admin do
+    root 'categories#index'
     resources :categories
-    resources :posts, only: [:index, :destroy]
     resources :users, only: [:index] do
       member do
         post :joinadmin
+        post :removeadmin
       end
     end
   end
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      
+      post "/login" => "auth#login"
+      post "/logout" => "auth#logout"
+
       resources :posts, only: [:index, :create, :show, :update, :destroy]
     end
   end

@@ -1,0 +1,29 @@
+<div class="jumbotron"> 
+  <img src=""/> 
+  <h3 class="user_name"> <%= @user.name %>  </h3>
+  <div class="introdunction"> 
+    <%= @user.intro %>
+    <div> 
+      <% if @user == current_user %> 
+          <%= link_to('Change Password', edit_user_registration_path, class: "btn btn-default" ) %>
+          <%= link_to("Edit", edit_user_path(current_user), class: "btn btn-default") %>
+      <% end %>
+    </div>
+  </div>
+  
+  <% if @user != current_user %>
+    <button class="btn btn-default">Friend</button>
+  <% end %>
+</div>
+
+<ul class="nav nav-tabs">
+  <li role="presentation"> <%= link_to "Posts", user_path(@user)%> </li>
+  <li role="presentation"> <%= link_to "Comments", comments_user_path(@user)%></li>
+  <li role="presentation"> <%= link_to "Collects", collects_user_path(@user)%></li>
+  
+  <% if @user == current_user %> 
+  <li role="presentation"> <%= link_to "Drafts", drafts_user_path(@user)%> </li>
+  <% end %>
+  
+  <li role="presentation"> <%= link_to "Friends", friends_user_path(@user)%></li>
+</ul>

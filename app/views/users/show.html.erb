@@ -1,0 +1,35 @@
+
+<%= render :partial => "info" %>
+
+
+
+<h4> Posts </h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status </th>
+      <th>Last Update</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td> <%= link_to post.title, post_path(post) %></td>
+        <td> <%= post.status %></td>
+        <td> <%=  if post.last_reply.nil? 
+                    time_ago_in_words(post.created_at)
+                  else
+                    time_ago_in_words(post.last_reply.created_at)
+                  end  %>
+        </td>
+        <td>
+           <%= render :partial => "post_buttons", :locals => { :post => post } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

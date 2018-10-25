@@ -1,28 +1,53 @@
 
-<%= @post.title %> <br>
-<%= simple_format(@post.content) %> <br>
-<%= @post.view_count %> <br>
-<%= @post.replies_count %> <br>
-<%= @post.user_id %> <br>
+<table class="table table-bordered">
+  <tr>
+    <td colspan="3">
+      <h4> <%= @post.title %> </h4>
+       <% @post.categories.each do |category|  %>
+        <span class="badge badge-secondary"><%= category.name %></span>
+      <% end %>
 
-<%= @post.created_at %> <br>
-<%= @post.updated_at %> <br>
-<%= @post.access %> <br>
-<%= image_tag @post.image %> <br>
+      <button class="btn btn-default">collect</button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= render :partial => "user_profile_icon", :locals => { :user => @post.user }%>
+    </td>
+    <td colspan="2">
+      <%= image_tag @post.image %> <br>
+      <%= simple_format(@post.content) %>
+      <%= render :partial => "post_buttons", :locals => { :post => @post }%>
+    </td>
+  </tr>
 
-<hr>
-<% @post.categories.each do |category|  %>
-  <%= category.name %>,
-<% end %>
+  <% @replies.each do |reply|  %>
+    <% if reply.user == current_user %>
+      <%= form_for reply, url: reply_path do |f| %>
+       <tr> 
+        <td>
+          <%= render :partial => "user_profile_icon", :locals => { :user => reply.user }%>
+        </td>
+        <td>
+           <%= f.text_area :content, placeholder: "Content",  class: "form-control" %>
+            <%= f.submit "Edit", class: "btn btn-primary" %>
+            <%= link_to "Delete" ,reply_path(reply), method: :delete, data: {confirm:"Are you sure?"}, class: "btn btn-default" %>
+        </td>
+      </tr>
+      <% end %>
+    <% else %>
+      <tr> 
+        <td>
+          <%= render :partial => "user_profile_icon", :locals => { :user => reply.user }%>
+        </td>
+        <td>
+          <%= reply.content %>
 
-<hr>
-<% @post.replies.each do |reply|  %>
-  <%= reply.content %>
-  <%= reply.user.name %>
-  <%= reply.created_at %>
-  <%= reply.updated_at %> <br>
-  
-<% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
 
 
 <hr>
@@ -33,5 +58,6 @@
   <%= f.button "Cancel", type: :reset, class: "btn btn-default" %>
 <% end %>
 
+<hr>
 
-<p><%= link_to 'Back to index', posts_path %></p>
+<p><%= link_to 'Back to index', posts_path , class: "btn btn-default"%></p>

@@ -1,6 +1,13 @@
-User : 216
-Post : 1024
-Comment :3086
+User  <%= @users_count      %> <hr>
+Post  <%= @posts_count      %> <hr>
+Comment  <%= @reply_count      %> <hr>
 
+<h4>Most Popular Posts</h4>
+<% @most_popular_posts.each do |post| %>
+    <%= link_to post.title, post_path(post)%> <br>
+<% end %>
 
-chatter box | Most popular post
+<h4>Chatterbox</h4>
+<% @most_noisy_users.each do |user| %>
+    <%= link_to user.name,  user_path(user)%> <br>
+<% end %>

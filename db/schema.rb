@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181024144914) do
+ActiveRecord::Schema.define(version: 20181025141309) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -48,12 +48,24 @@ ActiveRecord::Schema.define(version: 20181024144914) do
     t.string "title"
     t.string "content"
     t.integer "view_count"
-    t.integer "replies_count"
+    t.integer "replies_count", default: 0
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "access"
     t.string "image"
+    t.string "status", default: "publish"
+  end
+
+  create_table "punches", force: :cascade do |t|
+    t.integer "punchable_id", null: false
+    t.string "punchable_type", limit: 20, null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.datetime "average_time", null: false
+    t.integer "hits", default: 1, null: false
+    t.index ["average_time"], name: "index_punches_on_average_time"
+    t.index ["punchable_type", "punchable_id"], name: "punchable_index"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -80,6 +92,12 @@ ActiveRecord::Schema.define(version: 20181024144914) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "replies_count", default: 0
+    t.integer "posts_count", default: 0
+    t.text "intro"
+    t.string "authentication_token"
+    t.string "avatar"
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

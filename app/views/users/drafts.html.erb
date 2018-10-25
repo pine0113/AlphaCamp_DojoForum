@@ -1,9 +1,9 @@
-
+<%= render :partial => "info" %>
 <table class="table">
   <thead>
     <tr>
-      <th>Replies Cout</th>
       <th>Title</th>
+      <th>Status <th>
       <th>Last reply at</th>
       <th>Viewed Count </th>
     </tr>
@@ -11,12 +11,11 @@
   <tbody>
     <% @posts.each do |post| %>
     <tr>
-      <td><span class="badge"> <%= post.replies_count %> </span></td>
       <td> <%= link_to post.title, post_path(post) %></td>
+      <td> <%= post.status %></td>
       <td> <%=  time_ago_in_words(post.last_reply.created_at)  unless post.last_reply.nil? %></td>
       <td> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <%= post.hits %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
-

@@ -4,23 +4,13 @@ class Admin::UsersController < Admin::BaseController
     @users = User.all
   end
 
-  def post   
-  end
-
-  def comment
-  end
-
-  def draft 
-  end
-
-  def collect
-  end
-
-  def friend
+  def joinadmin
+    @user.join_admin
+    redirect_to admin_users_path
   end
 
   def joinadmin
-    @user.join_admin
+    @user.remove_admin
     redirect_to admin_users_path
   end
 

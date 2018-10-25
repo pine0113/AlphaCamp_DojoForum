@@ -1,0 +1,11 @@
+<%= render :partial => "info" %>
+
+<% @replies.each do |reply| %>
+  <% unless reply.post.nil?%>
+    <%= reply.post.title %> <br>
+    <button>Edit</button><button>Remove</button><br>
+    <%= reply.content %>
+    <hr>
+  <% end %>
+
+<% end %>

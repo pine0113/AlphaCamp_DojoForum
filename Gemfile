@@ -41,6 +41,7 @@ gem 'ffaker', '~> 2.10'
 gem 'carrierwave', '~> 1.2', '>= 1.2.3'
 gem "font-awesome-rails"
 gem 'acts-as-taggable-on', '~> 6.0'
+gem "punching_bag"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
