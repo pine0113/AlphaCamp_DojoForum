@@ -3,8 +3,25 @@ class PostsController < ApplicationController
   before_action :set_post, except: [:index, :new, :create]
 
   def index
-    @posts = Post.where("status != ?", 'draft').page(params[:page]).per(20)
+    case params["sort"]
+    when "view_count_up"
+      @posts = Post.where("status != ?", 'draft').sort_by_popularity('ASC').page(params[:page]).per(20)
+    when "view_count_down"
+      @posts = Post.where("status != ?", 'draft').sort_by_popularity('DESC').page(params[:page]).per(20)
+    when "reply_count_up"
+      @posts = Post.where("status != ?", 'draft').order("replies_count ASC").page(params[:page]).per(20)
+    when "reply_count_down"
+      @posts = Post.where("status != ?", 'draft').order("replies_count DESC").page(params[:page]).per(20)
+    when "reply_time_up"
+      @posts = Post.where("status != ?", 'draft').order("last_reply_time ASC").page(params[:page]).per(20)
+    when "reply_time_down"
+      @posts = Post.where("status != ?", 'draft').order("last_reply_time DESC").page(params[:page]).per(20)
+    else
+      @posts = Post.where("status != ?", 'draft').page(params[:page]).per(20)
+    end
     @categories = Category.all
+
+    #Post 
   end
 
   def new
@@ -60,8 +77,7 @@ class PostsController < ApplicationController
       flash[:alert] = "you can not delete this post"
     else
       @post.destroy
-      session[:return_to] ||= request.referer
-      redirect_to session[:return_to]
+      redirect_to posts_path
       flash[:alert] = "post was deleted"
     end
   end

@@ -1,5 +1,5 @@
 <div class="jumbotron"> 
-  <img src=""/> 
+  <%= image_tag(@user.avatar.url, class: "user_icon", width: "100px" , height: "100px" ) %> <br>
   <h3 class="user_name"> <%= @user.name %>  </h3>
   <div class="introdunction"> 
     <%= @user.intro %>

@@ -1,5 +1,4 @@
 class Post < ApplicationRecord
-  default_scope -> { order('id DESC') }
   
   acts_as_punchable
   mount_uploader :image, ImageUploader

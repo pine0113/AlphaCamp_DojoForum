@@ -14,7 +14,7 @@
     <table>
       <tr>
         <td>
-          <%= image_tag(@user.avatar.url, width: "200px" ) unless @user.avatar.nil? %>
+          <%= image_tag(@user.avatar.url, class: "user_icon", width: "50px" , height: "50px" ) unless @user.avatar.nil? %> <br>
         </td>
         <td>
           <%= f.file_field :avatar %>

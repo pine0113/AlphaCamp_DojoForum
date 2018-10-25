@@ -4,10 +4,10 @@ Comment  <%= @reply_count      %> <hr>
 
 <h4>Most Popular Posts</h4>
 <% @most_popular_posts.each do |post| %>
-    <%= link_to post.title, post_path(post)%> <br>
+    <%= link_to post.title, post_path(post)%> <%=  time_ago_in_words(post.last_reply.created_at)  unless post.last_reply.nil? %> <br>
 <% end %>
 
 <h4>Chatterbox</h4>
 <% @most_noisy_users.each do |user| %>
-    <%= link_to user.name,  user_path(user)%> <br>
+    <%= link_to user.name,  user_path(user)%> <%= user.replies_count %> <br>
 <% end %>

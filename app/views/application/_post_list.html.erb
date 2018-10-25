@@ -2,10 +2,11 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Replies Cout</th>
+      <th>Replies Cout <a href="?sort=reply_count_up">up</a> <a href="?sort=reply_count_down">down</a></th>
       <th>Title</th>
-      <th>Last reply at</th>
-      <th>Viewed Count </th>
+      <th>Last reply at <a href="?sort=reply_time_up">up</a> <a href="?sort=reply_time_down">down</a></th>
+      <th>Viewed Count  <a href="?sort=view_count_up">up</a> <a href="?sort=view_count_down">down</a></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -13,8 +14,13 @@
     <tr>
       <td><span class="badge"> <%= post.replies_count %> </span></td>
       <td> <%= link_to post.title, post_path(post) %></td>
-      <td> <%=  time_ago_in_words(post.last_reply.created_at)  unless post.last_reply.nil? %></td>
+      <td> <%=  time_ago_in_words(post.last_reply_time)  unless post.last_reply_time.nil? %></td>
       <td> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <%= post.hits %></td>
+      <td> 
+        <% if current_user.role == "admin" %>
+          <%= link_to "delete", post_path(post), method: :delete, data: {confirm:"Are you sure?"}, class: "btn btn-default" %>
+        <% end %>
+      </td>
     </tr>
     <% end %>
   </tbody>
