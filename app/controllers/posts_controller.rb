@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   def show
     @post.punch(request)
     @reply = Reply.new
-    @replies = Reply.find_by_post_page(@post.id,params[:page])
+    @replies = Reply.find_by_post_page(@post.id,params[:page]).per(20)
   end
 
   def create
