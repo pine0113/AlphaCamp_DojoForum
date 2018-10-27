@@ -8,6 +8,6 @@ class Reply < ApplicationRecord
     if current_page == nil
       current_page = 1
     end
-    where("post_id = #{post_id}").order('id DESC').page(current_page)
+    where("post_id = #{post_id}").order('id ASC').page(current_page)
   end
 end

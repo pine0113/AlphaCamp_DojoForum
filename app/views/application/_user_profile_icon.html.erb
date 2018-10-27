@@ -1,4 +1,21 @@
+<div id="user-<%= user.id %>">
 <%  unless user.avatar.url.nil? %>
 <%= image_tag(user.avatar.url, class: "user_icon", width: "50px" , height: "50px" ) %> <br>
 <% end %>
 <%= user.name %> <br>
+
+<% if current_user.is_friend(user) %>
+  <span class="badge badge-primary friend-tag"> Friend </span>
+<% elsif user == current_user %>
+<% elsif current_user.is_wait_accept(user)  %>
+  <span class="waiting-accept badge"> Waitng Accept </span>
+<% elsif current_user.is_been_ask_friend(user)  %>
+ <span class="badge badge-primary friend-tag" style="display: none;"> Friend </span>
+ <button value="<%= user.id %>" class="accept-friend-btn friend-<%= user.id %> btn btn-default">Accept Friend</button>
+ <button value="<%= user.id %>" class="unfriend-btn friend-<%= user.id %> btn btn-default">Ignore</button>
+<% else %>
+ <span class="badge badge-primary friend-tag" style="display: none;"> Friend </span>
+ <button value="<%= user.id %>" class="friend-btn friend-<%= user.id %> btn btn-default">Friend</button>
+ <span class="waiting-accept-<%= user.id %> badge" style="display: none;"> Waitng Accept </span>
+<% end %>
+</div>

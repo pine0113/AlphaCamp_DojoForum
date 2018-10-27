@@ -17,8 +17,10 @@
       <td> <%=  time_ago_in_words(post.last_reply_time)  unless post.last_reply_time.nil? %></td>
       <td> <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <%= post.hits %></td>
       <td> 
+        <% unless current_user.nil? %>
         <% if current_user.role == "admin" %>
           <%= link_to "delete", post_path(post), method: :delete, data: {confirm:"Are you sure?"}, class: "btn btn-default" %>
+        <% end %>
         <% end %>
       </td>
     </tr>

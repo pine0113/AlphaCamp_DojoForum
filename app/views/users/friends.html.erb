@@ -1,1 +1,76 @@
 <%= render :partial => "info" %>
+
+
+<% @friend_askers.each do |user| %>
+     <%= render :partial => "user_profile_icon", :locals => { :user => user }%> <br>
+<% end %>
+<hr>
+<% @wait_accept_friends.each do |user| %>
+<%= render :partial => "user_profile_icon", :locals => { :user => user }%> <br>
+<% end %>
+<hr>
+<% @friends.each do |user| %>
+     <%= render :partial => "user_profile_icon", :locals => { :user => user }%> <br>
+<% end %>
+
+<script>
+<% if current_user %>
+   var token = '<%= current_user.authentication_token %>'
+<% end %>
+$(".friend-btn").on("click", function(event) {
+  var id = event.target.value;
+  console.log(id);
+  $.ajax({
+    url: "/api/v1/users/" + id + "/friend" ,
+    method: "POST",
+    dataType: "json",
+    data: 
+    {
+      'auth_token' : token
+    },
+    success: function(data) {
+      $(".friend-"+id).hide();
+      $(".waiting-accept").show();
+    }
+  });
+
+});
+
+$(".accept-friend-btn").on("click", function(event) {
+  var id = event.target.value;
+  console.log(id);
+  $.ajax({
+    url: "/api/v1/users/" + id + "/acceptfriend" ,
+    method: "POST",
+    dataType: "json",
+    data: 
+    {
+      'auth_token' : token
+    },
+    success: function(data) {
+      $("#user-"+id+" .unfriend-btn").remove()
+      $("#user-"+id+" .accept-friend-btn").remove()
+      $("#user-"+id+" .friend-tag").show()
+    }
+  });
+
+});
+
+$(".unfriend-btn").on("click", function(event) {
+  var id = event.target.value;
+  console.log(id);
+  $.ajax({
+    url: "/api/v1/users/" + id + "/unfriend" ,
+    method: "POST",
+    dataType: "json",
+    data: 
+    {
+      'auth_token' : token
+    },
+    success: function(data) {
+      $("#user-"+id).remove()
+    }
+  });
+
+});
+</script>

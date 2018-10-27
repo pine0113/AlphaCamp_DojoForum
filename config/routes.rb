@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {sessions: 'sessions'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # 請依照專案指定規格來設定路由
@@ -7,10 +7,6 @@ Rails.application.routes.draw do
   root 'posts#index'
   resources :posts, only: [:index, :show, :create, :new, :edit, :update, :destroy] do
     get :rights
-    member do
-      post :collect
-      post :uncollect
-    end
 
     resources :replies, only: [:create]
 
@@ -22,10 +18,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :edit, :update] do
     member do
-      post :frined
-      post :unfriend
-      post :acceptfriend
-
       get :posts
       get :comments
       get :collects
@@ -53,7 +45,22 @@ Rails.application.routes.draw do
       post "/login" => "auth#login"
       post "/logout" => "auth#logout"
 
-      resources :posts, only: [:index, :create, :show, :update, :destroy]
+      resources :posts, only: [:index, :create, :show, :update, :destroy] do
+        member do
+          post :collect
+          post :uncollect
+        end
+      end
+
+      resources :users, only: [] do
+        member do
+          post :friend
+          post :unfriend
+          post :acceptfriend
+        end
+      end
+
+
     end
   end
 end

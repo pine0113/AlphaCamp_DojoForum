@@ -28,6 +28,8 @@ class UsersController < ApplicationController
   end
 
   def friends
+    @wait_accept_friends = @user.wait_accept_friends;
+    @friend_askers = @user.friend_askers;
     @friends = @user.friends;
   end
 

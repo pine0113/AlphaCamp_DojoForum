@@ -5,23 +5,21 @@ class PostsController < ApplicationController
   def index
     case params["sort"]
     when "view_count_up"
-      @posts = Post.where.not(published_at: [nil, ""]).sort_by_popularity('ASC').page(params[:page]).per(20)
+      @posts = Post.can_view_by(current_user).sort_by_popularity('ASC').page(params[:page]).per(20)
     when "view_count_down"
-      @posts = Post.where.not(published_at: [nil, ""]).sort_by_popularity('DESC').page(params[:page]).per(20)
+      @posts = Post.can_view_by(current_user).sort_by_popularity('DESC').page(params[:page]).per(20)
     when "reply_count_up"
-      @posts = Post.where.not(published_at: [nil, ""]).order("replies_count ASC").page(params[:page]).per(20)
+      @posts = Post.can_view_by(current_user).order("replies_count ASC").page(params[:page]).per(20)
     when "reply_count_down"
-      @posts = Post.where.not(published_at: [nil, ""]).order("replies_count DESC").page(params[:page]).per(20)
+      @posts = Post.can_view_by(current_user).order("replies_count DESC").page(params[:page]).per(20)
     when "reply_time_up"
-      @posts = Post.where.not(published_at: [nil, ""]).order("last_reply_time ASC").page(params[:page]).per(20)
+      @posts = Post.can_view_by(current_user).order("last_reply_time ASC").page(params[:page]).per(20)
     when "reply_time_down"
-      @posts = Post.where.not(published_at: [nil, ""]).order("last_reply_time DESC").page(params[:page]).per(20)
+      @posts = Post.can_view_by(current_user).order("last_reply_time DESC").page(params[:page]).per(20)
     else
-      @posts = Post.where.not(published_at: [nil, ""]).page(params[:page]).per(20)
+      @posts = Post.can_view_by(current_user).page(params[:page]).per(20)
     end
     @categories = Category.all
-
-    #Post 
   end
 
   def new
@@ -86,14 +84,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def collect
-    @collect = current_user.collect.build(collect_params)
-    @collect.save
-    render :json => { :id => @collect.post.id, :title => @collect.post.title }
-  end
 
-  def uncollect
-  end
 
   private
 
@@ -106,9 +97,7 @@ class PostsController < ApplicationController
                                  :access, :image,:category_ids => [])
   end
 
-  def collect_params
-    params.require(:collect).permit(:post_id)
-  end
+
 
   def publishing?
     params[:commit] == "Publish"

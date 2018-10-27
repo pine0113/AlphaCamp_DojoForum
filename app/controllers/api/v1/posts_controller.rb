@@ -63,6 +63,19 @@ class Api::V1::PostsController < ApiController
     }
   end
 
+  def collect
+    @collect = Collect.new(:post_id => params['id'], :user_id => current_user.id )
+    @collect.save
+    render :json => { :id => @collect.post.id, :title => @collect.post.title }
+  end
+
+  def uncollect
+    @collects = Collect.where(:post_id => params['id'], :user_id => current_user.id )
+    @collects.each do |collect|
+      collect.destroy
+    end
+    render :json => {result:  @collects }
+  end
 
   private
   def post_params
@@ -70,4 +83,5 @@ class Api::V1::PostsController < ApiController
                                 :access, :image,:category_ids => [])
   end
 
+ 
 end

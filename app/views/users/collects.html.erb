@@ -13,14 +13,39 @@
   </thead>
   <tbody>
     <% @collects_posts.each do |post| %>
-      <tr>
+      <tr id="<%= post.id %>">
         <td> <%= link_to post.title, post_path(post) %></td>
         <td> <%= post.status %></td>
         <td> <%=  time_ago_in_words(post.last_reply_time) unless post.last_reply_time.nil? %> </td>
         <td>
-           <button> uncollect </button>
+            <button value="<%= post.id %>" class="uncollect-btn btn btn-default">uncollect</button>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<script>
+<% if current_user %>
+   var token = '<%= current_user.authentication_token %>'
+<% end %>
+
+
+$(".uncollect-btn").on("click", function(event) {
+  var id = event.target.value;
+  console.log(id);
+  $.ajax({
+    url: "/api/v1/posts/" + id + "/uncollect" ,
+    method: "POST",
+    dataType: "json",
+    data: 
+    {
+      'auth_token' : token
+    },
+    success: function(data) {
+      $("#"+id).remove()
+    }
+  });
+
+});
+</script>
