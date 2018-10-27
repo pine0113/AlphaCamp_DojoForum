@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   scope :access_all, -> { where(:access => "all") }
   scope :access_friend, -> { where(:access => "friend") }
   scope :access_me, -> { where(:access => "self") }
-  scope :published, -> { where.not(published_at: [nil, ""]) }
+  scope :published, -> { where.not(published_at: [nil]) }
 
   def last_reply
     replies.order('id DESC').first
