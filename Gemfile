@@ -43,7 +43,8 @@ gem 'acts-as-taggable-on', '~> 6.0'
 gem "punching_bag"
 
 group :development, :test do
-
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -66,5 +67,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
-  gem 'pg', '~> 0.20'
+  gem 'mysql2', '< 0.5'
 end
