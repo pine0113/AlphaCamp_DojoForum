@@ -33,4 +33,5 @@ class Post < ApplicationRecord
     Post.from("( #{ sql1 } UNION #{ sql2 } UNION #{sql3}) AS posts")
   end
 
+
 end
