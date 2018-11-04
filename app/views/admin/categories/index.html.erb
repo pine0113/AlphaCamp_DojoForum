@@ -1,5 +1,5 @@
 
-<h1> Category List </h1>
+<h1> Category List <%= link_to "Users List", admin_users_path, class: "btn btn-default"%>  </h1>
 
   <div class="form-inline" >
   <%= form_for [:admin, @category] do |f| %>
