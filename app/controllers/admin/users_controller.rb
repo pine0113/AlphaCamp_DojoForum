@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :set_user, only: [:joinadmin]
+  before_action :set_user, only: [:joinadmin,:removeadmin]
   def index
     @users = User.all
   end
@@ -9,7 +9,7 @@ class Admin::UsersController < Admin::BaseController
     redirect_to admin_users_path
   end
 
-  def joinadmin
+  def removeadmin
     @user.remove_admin
     redirect_to admin_users_path
   end

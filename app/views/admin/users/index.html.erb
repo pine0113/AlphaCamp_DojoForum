@@ -20,7 +20,7 @@
         <td><%= user.role %></td>
         <td>
           <% if user.role == "admin" %>
-            <%= link_to "remove admin", joinadmin_admin_user_path(user),method: :post, class: "btn btn-default"%> 
+            <%= link_to "remove admin", removeadmin_admin_user_path(user),method: :post, class: "btn btn-default"%> 
           <% else %>
             <%= link_to "add admin", joinadmin_admin_user_path(user),method: :post, class: "btn btn-danger"%> 
           <% end %>
