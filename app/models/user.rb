@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   has_many :replied_posts, through: :replies, source: :post
 
-  has_many :collects, :foreign_key => "post_id"
+  has_many :collects, :foreign_key => "user_id"
   has_many :collects_posts, through: :collects, source: :post
 
   has_many :wait_accept_friendships,-> { Friendship.wait_accept }, class_name: "Friendship"
