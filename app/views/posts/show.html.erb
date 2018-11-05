@@ -29,18 +29,20 @@
 
   <% @replies.each do |reply|  %>
     <% if reply.user == current_user %>
-      <%= form_for reply, url: reply_path do |f| %>
+    
        <tr> 
         <td>
           <%= render :partial => "user_profile_icon", :locals => { :user => reply.user }%>
         </td>
         <td>
+          <%= form_for reply, url: reply_path do |f| %>
            <%= f.text_area :content, placeholder: "Content",  class: "form-control" %>
             <%= f.submit "Edit", class: "btn btn-primary" %>
             <%= link_to "Delete" ,reply_path(reply), method: :delete, data: {confirm:"Are you sure?"}, class: "btn btn-default" %>
+          <% end %>
         </td>
       </tr>
-      <% end %>
+
     <% else %>
       <tr> 
         <td>

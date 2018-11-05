@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20181104222613) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "access", default: "all"
+    t.string "access", default: "all"
     t.string "image"
     t.datetime "last_reply_time"
     t.datetime "published_at"
